@@ -381,6 +381,7 @@ a{color:inherit}
 
 .t-wx{background:linear-gradient(150deg,#4aa3ff,#1f5fbf);font-size:17px}
 .hire-btn{margin-top:4px;justify-self:start;font-weight:600;font-size:14px;padding:9px 14px;border-radius:999px;background:var(--signal);color:#0b1322}
+.now-pill{display:inline-block;vertical-align:2px;margin-left:6px;font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:999px;background:rgba(79,196,192,.18);color:var(--shield)}
 .facts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}
 .facts div{border:1px solid var(--line);border-radius:14px;padding:12px;background:var(--tint);min-width:0}
 .facts small{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
@@ -660,7 +661,7 @@ a{color:inherit}
       <div class="body inset">
         <p class="lede">I'm Emmanuel. I make security <em>make sense</em> to the people it's meant to protect.</p>
         <p>Nigerian-born and UK-based, I came to cybersecurity through the service desk: years of helping real people with real problems before I ever wrote a detection rule. That still shapes how I work.</p>
-        <p>I hold an MSc in Cybersecurity from Edinburgh Napier University and a BEng in Computer Engineering from the University of Ilorin. I've worked as a SOC Analyst, triaging alerts and building detections in Microsoft Sentinel and Defender, and I volunteer with The Cyber Helpline supporting victims of cybercrime.</p>
+        <p>I hold an MSc in Cybersecurity from Edinburgh Napier University and a BEng in Computer Engineering from the University of Ilorin. I'm currently a Cyber Security Advisor at The Cyber Helpline, supporting victims of cybercrime. Before that I was a SOC Analyst at Amdari, triaging alerts and building detections in Microsoft Sentinel and Defender.</p>
         <p>Cybernuel is where I share it all: hands-on labs, plain-English explainers and a weekly newsletter.</p>
         <div class="sub">Toolkit</div>
         <div class="meta" style="display:flex;flex-wrap:wrap;gap:6px">
@@ -673,8 +674,8 @@ a{color:inherit}
       <header class="inset"><div><div class="k">Timeline</div><h1>Career</h1></div><button class="close" data-close aria-label="Close"><svg width="14" height="14" viewBox="0 0 14 14" stroke="currentColor" stroke-width="2"><path d="M2 2l10 10M12 2L2 12"/></svg></button></header>
       <div class="body inset">
         <ul class="tl">
-          <li><div class="yr">2026</div><div><h4>SOC Analyst · Amdari</h4><p>London. Alert triage, investigation and detection tuning.</p></div></li>
-          <li><div class="yr">2025 –</div><div><h4>Volunteer Cyber Security Advisor · The Cyber Helpline</h4><p>Remote. Helping victims of cybercrime and online harm.</p></div></li>
+          <li><div class="yr">2025 – now</div><div><h4>Cyber Security Advisor · The Cyber Helpline <span class="now-pill">Current</span></h4><p>Remote, volunteer role. Helping victims of cybercrime and online harm.</p></div></li>
+          <li><div class="yr">2026</div><div><h4>SOC Analyst · Amdari</h4><p>London, February to August 2026. Alert triage, investigation and detection tuning.</p></div></li>
           <li><div class="yr">2022–25</div><div><h4>IT Service Desk Analyst · PayPoint</h4><p>UK. Incident handling, user support and access issues at scale.</p></div></li>
           <li><div class="yr">Earlier</div><div><h4>IT support · Dots ICT, Femtech</h4><p>Nigeria. Hardware, networks and customer-facing support.</p></div></li>
         </ul>
@@ -702,10 +703,10 @@ a{color:inherit}
     </section>
 
     <section class="sheet" id="s-helpline" aria-label="Helpline">
-      <header class="inset"><div><div class="k">Volunteering</div><h1>Helpline</h1></div><button class="close" data-close aria-label="Close"><svg width="14" height="14" viewBox="0 0 14 14" stroke="currentColor" stroke-width="2"><path d="M2 2l10 10M12 2L2 12"/></svg></button></header>
+      <header class="inset"><div><div class="k">Current role</div><h1>Helpline</h1></div><button class="close" data-close aria-label="Close"><svg width="14" height="14" viewBox="0 0 14 14" stroke="currentColor" stroke-width="2"><path d="M2 2l10 10M12 2L2 12"/></svg></button></header>
       <div class="body inset">
         <p class="lede">Behind every incident is a <em>person</em> having a bad day.</p>
-        <p>Since 2025 I've volunteered as a Cyber Security Advisor with The Cyber Helpline, a UK charity that gives free, expert help to people affected by cybercrime and online harm: hacked accounts, scams, sextortion, stalkerware.</p>
+        <p>I'm a Cyber Security Advisor at The Cyber Helpline, a role I've held as a volunteer since 2025. It's a UK charity that gives free, expert help to people affected by cybercrime and online harm: hacked accounts, scams, sextortion, stalkerware.</p>
         <p>It keeps my work grounded. Detections and dashboards matter, but so does explaining calmly to someone what happened and what to do next.</p>
         <p style="font-size:13px;color:var(--muted)">Need help yourself? <a href="https://www.thecyberhelpline.com" target="_blank" rel="noopener">thecyberhelpline.com</a></p>
       </div>
@@ -880,7 +881,8 @@ a{color:inherit}
         </div>
         <div class="sub">What I bring</div>
         <ul class="bring">
-          <li>Hands-on SOC experience: alert triage, investigation and detection tuning in Microsoft Sentinel and Defender.</li>
+          <li>Currently a Cyber Security Advisor at The Cyber Helpline, supporting victims of cybercrime.</li>
+          <li>SOC experience at Amdari (2026): alert triage, investigation and detection tuning in Microsoft Sentinel and Defender.</li>
           <li>Automation: a working pipeline from Wazuh to TheHive with threat-intel enrichment and alerting.</li>
           <li>Years on the service desk, so I explain incidents clearly to non-technical people.</li>
         </ul>
@@ -1462,7 +1464,7 @@ a{color:inherit}
   // messages
   (function(){
     const QA=[
-      ['What do you do?',"I'm a cybersecurity analyst. I've worked in a SOC triaging alerts and building detections in Microsoft Sentinel and Defender, and I automate the boring parts."],
+      ['What do you do?',"I'm a Cyber Security Advisor at The Cyber Helpline, helping people affected by cybercrime. Before that I was a SOC analyst at Amdari, triaging alerts and building detections in Microsoft Sentinel and Defender."],
       ['Are you open to work?',"Yes 🙌 I'm open to SOC and security analyst roles across the UK. Full right to work, no sponsorship needed."],
       ["What's Cybernuel?","It's my brand for making security make sense: hands-on labs, plain-English explainers and a weekly Substack newsletter."],
       ["I think I've been hacked","Sorry you're dealing with that. Change your passwords from a safe device, turn on two-step verification, and get free expert help from The Cyber Helpline at thecyberhelpline.com."],
@@ -1504,7 +1506,7 @@ a{color:inherit}
   const out=$('#out');
   const C={
     help:()=>[['m','available commands:'],['','  whoami     who is this'],['','  stack      tools I work with'],['','  certs      certifications'],['','  cases      projects and labs'],['','  contact    how to reach me'],['','  clear      clear the screen']],
-    whoami:()=>[['w','Emmanuel Adegbite (Cybernuel)'],['','SOC analyst · detection engineer · writer'],['','MSc Cybersecurity, Edinburgh Napier'],['','Volunteer, The Cyber Helpline']],
+    whoami:()=>[['w','Emmanuel Adegbite (Cybernuel)'],['','Cyber Security Advisor, The Cyber Helpline (current)'],['','Former SOC analyst, Amdari'],['','MSc Cybersecurity, Edinburgh Napier']],
     stack:()=>[['p','siem   '],['','  Microsoft Sentinel, Wazuh'],['p','edr    '],['','  Defender for Endpoint'],['p','soar   '],['','  n8n, TheHive'],['p','intel  '],['','  VirusTotal, OSINT, MITRE ATT&CK'],['p','lang   '],['','  KQL']],
     certs:()=>[['','[✓] CompTIA Security+'],['','[✓] CompTIA CySA+'],['','[✓] Microsoft SC-200'],['','[✓] Microsoft AZ-900'],['','[✓] Cisco Ethical Hacker'],['','[✓] arcX CTI Analyst']],
     cases:()=>[['','CASE-001  SOC automation pipeline   [closed]'],['','CASE-002  Sentinel impossible travel [closed]'],['','CASE-003  Sentinel BEC detection     [closed]'],['m',"tip: open the Cases app for details"]],
