@@ -481,6 +481,7 @@ a{color:inherit}
 @media (min-width:1100px) and (hover:hover){
   .edge{display:none}
   .mb-btn{display:inline-grid;place-items:center;order:4}
+  .status{user-select:none;-webkit-user-select:none;touch-action:none}
   .status .left{cursor:pointer;padding:2px 6px;border-radius:6px}
   .status .left:hover,.mb-btn:hover{background:rgba(255,255,255,.12)}
   .ncenter{inset:auto;top:38px;right:10px;bottom:10px;width:380px;border-radius:20px;padding:16px 12px;transform:translateX(calc(100% + 20px));border:1px solid rgba(255,255,255,.12);box-shadow:0 30px 80px rgba(0,0,0,.5)}
@@ -1359,8 +1360,17 @@ a{color:inherit}
     $('#ncClear').addEventListener('click',()=>{ $('#notes').innerHTML=''; renderNC(); });
 
     // Mac menu bar: clock opens Notification Centre, toggle icon opens Control Centre
-    $('.status .left').addEventListener('click',()=>{ if(!isDesk())return; cur===nc?closeP(nc):openP(nc); });
-    $('#mbCC').addEventListener('click',e=>{ e.stopPropagation(); cur===cc?closeP(cc):openP(cc); });
+    let skipClick=false;
+    $('.status .left').addEventListener('click',()=>{ if(!isDesk()||skipClick)return; cur===nc?closeP(nc):openP(nc); });
+    // desktop: drag down from anywhere on the menu bar (left/middle = notifications, right = Control Centre)
+    (function(){ const bar=$('.status'); let d=null;
+      bar.addEventListener('pointerdown',e=>{ if(!isDesk())return; d={x:e.clientX,y:e.clientY,done:false}; skipClick=false; });
+      addEventListener('pointermove',e=>{ if(!d||d.done)return; if(e.clientY-d.y>36){ d.done=true; skipClick=true; const right=d.x/innerWidth>.62; openP(right?cc:nc); } });
+      addEventListener('pointerup',()=>{ d=null; setTimeout(()=>{skipClick=false;},0); });
+    })();
+    // trackpad / mouse wheel: scroll down while hovering the menu bar
+    $('.status').addEventListener('wheel',e=>{ if(!isDesk()||cur)return; if(e.deltaY<-20){ openP(e.clientX/innerWidth>.62?cc:nc); } },{passive:true});
+    $('#mbCC').addEventListener('click',e=>{ e.stopPropagation(); if(skipClick)return; cur===cc?closeP(cc):openP(cc); });
     document.addEventListener('pointerdown',e=>{ if(!isDesk()||!cur)return; if(e.target.closest('#ncenter,#ccenter,.status'))return; closeP(cur); });
 
     // ----- Control Centre controls -----
