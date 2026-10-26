@@ -110,7 +110,15 @@ a{color:inherit}
 .lock .date{font-size:16px;font-weight:500;color:var(--fg);opacity:.85;text-align:center}
 .lock .time{font-family:var(--display);font-weight:800;font-size:clamp(76px,24vw,104px);line-height:.95;text-align:center;letter-spacing:-.04em;font-variant-numeric:tabular-nums;margin-top:4px}
 .lock .who{text-align:center;font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:10px;letter-spacing:.06em}
-.notes{margin-top:auto;display:flex;flex-direction:column;gap:8px}
+.notes{margin-top:14px;flex:1 1 auto;min-height:0;display:flex;flex-direction:column;gap:8px;overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;scrollbar-width:none;padding-top:10px;-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 22px,#000 calc(100% - 26px),transparent 100%);mask-image:linear-gradient(to bottom,transparent 0,#000 22px,#000 calc(100% - 26px),transparent 100%);padding-bottom:18px}
+.notes::-webkit-scrollbar{display:none}
+.notes>.notif:first-child{margin-top:auto}
+.notes .notif{flex:none;text-decoration:none;cursor:pointer}
+.notes .notif p{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.t-bbc{background:#111;display:flex!important;gap:1px;align-items:center;justify-content:center}
+.t-bbc i{font-style:normal;font-family:Arial,Helvetica,sans-serif;font-weight:800;font-size:8.5px;background:#fff;color:#111;width:8.5px;height:9.5px;display:grid;place-items:center;line-height:1}
+.t-thn{background:linear-gradient(150deg,#e2463b,#9c1c18)}
+.t-sub{background:#ff6719}
 .notif{background:var(--glass);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--line);border-radius:20px;padding:12px 14px;display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:start;animation:rise .6s both}
 .notif:nth-child(2){animation-delay:.12s}.notif:nth-child(3){animation-delay:.24s}
 .notif .ic{width:34px;height:34px;border-radius:9px;display:grid;place-items:center}
@@ -372,7 +380,6 @@ a{color:inherit}
 
 
 .t-wx{background:linear-gradient(150deg,#4aa3ff,#1f5fbf);font-size:17px}
-@media (max-width:719px){ #notes .notif:nth-child(n+4){display:none} }
 .hire-btn{margin-top:4px;justify-self:start;font-weight:600;font-size:14px;padding:9px 14px;border-radius:999px;background:var(--signal);color:#0b1322}
 .facts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}
 .facts div{border:1px solid var(--line);border-radius:14px;padding:12px;background:var(--tint);min-width:0}
@@ -480,13 +487,7 @@ a{color:inherit}
       <div class="mantra">Enormous wealth is ours.</div>
       <div class="who">CYBERNUEL · EMMANUEL ADEGBITE</div>
 
-      <div class="notes" id="notes">
-        <div class="notif">
-          <div class="ic t-term"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4fc4c0" stroke-width="2"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg></div>
-          <div><h4>Sentinel lab</h4><p>Impossible-travel rule deployed. Alert tuned, false positives down.</p></div>
-          <time>now</time>
-        </div>
-      </div>
+      <div class="notes" id="notes"></div>
 
       <button type="button" class="lk-btn lk-torch" id="torch" aria-label="Torch" aria-pressed="false"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M8 2h8v4l-2 3v12a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V9L8 6z"/><path d="M12 13v2"/></svg></button>
       <button type="button" class="lk-btn lk-cam" data-open="photos" aria-label="Camera"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg></button>
@@ -852,6 +853,13 @@ a{color:inherit}
     .then(r=>r.json()).then(j=>{ const c=j.current, w=WXC[c.weather_code]||['Weather','🌡️'];
       return {temp:Math.round(c.temperature_2m),desc:w[0],icon:w[1],wind:Math.round(c.wind_speed_10m),hi:Math.round(j.daily.temperature_2m_max[0]),lo:Math.round(j.daily.temperature_2m_min[0])}; })
     .catch(()=>null);
+  window.__patchTuesday=(y,m)=>{ const d1=new Date(y,m,1); return new Date(y,m,1+((2-d1.getDay()+7)%7)+7); };
+  window.__nextPatchTuesday=()=>{ const t=new Date(new Date().toDateString()); let p=window.__patchTuesday(t.getFullYear(),t.getMonth()); if(p<t)p=window.__patchTuesday(t.getFullYear(),t.getMonth()+1); return p; };
+  const rss=u=>fetch('https://api.rss2json.com/v1/api.json?rss_url='+encodeURIComponent(u)).then(r=>r.json()).then(j=>j.status==='ok'&&j.items&&j.items.length?j.items:null).catch(()=>null);
+  window.__ghP=fetch('https://api.github.com/users/Cybernuel/repos?per_page=100&sort=pushed').then(r=>{if(!r.ok)throw 0;return r.json();}).catch(()=>null);
+  window.__subP=rss('https://cybernuel.substack.com/feed');
+  window.__bbcP=rss('https://feeds.bbci.co.uk/news/rss.xml');
+  window.__thnP=rss('https://feeds.feedburner.com/TheHackersNews');
   if(isDesk()){const h=document.getElementById('hint');if(h)h.textContent='Click or press Enter to unlock';}
 
   // boot screen (once per visit)
@@ -914,36 +922,72 @@ a{color:inherit}
     set(0);
   })();
 
-  // incoming notifications
+  // incoming notifications: ten, newest on top, tap to open
   (function(){
-    const now=new Date(), y=now.getFullYear();
-    const today=new Date(y,now.getMonth(),now.getDate());
-    let bday=new Date(y,10,9); if(bday<today) bday=new Date(y+1,10,9);
-    const days=Math.round((bday-today)/864e5);
-    const when=days===0?'Today! 🎂':days===1?'Tomorrow · 9 November':'9 November · in '+days+' days';
     const isIOS=/iP(hone|od|ad)/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
     const standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone;
-    const items=[
-      {ic:'<div class="ic t-ig"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.6"/></svg></div>',t:'Instagram',p:'thebridgeandyou: New episode out now 🎙️',time:'now'},
-      {ic:'<div class="ic t-cal"><b>NOV</b><i>9</i></div>',t:"Wifey's birthday 🎂",p:when,time:'now'}
+    const pd=v=>{ if(!v)return null; const t=String(v); const d=new Date(/T/.test(t)?t:t.replace(' ','T')+'Z'); return isNaN(d)?null:d; };
+    const ago=d=>{ if(!d)return 'now'; const m=Math.round((Date.now()-d)/6e4); if(m<1)return 'now'; if(m<60)return m+'m ago';
+      const h=Math.round(m/60); if(h<24)return h+'h ago'; const dd=Math.round(h/24); return dd<7?dd+'d ago':d.toLocaleDateString('en-GB',{day:'numeric',month:'short'}); };
+    const svg=(c,body,stroke)=>'<svg width="18" height="18" viewBox="0 0 24 24" fill="'+(stroke?'none':c)+'"'+(stroke?' stroke="'+c+'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"':'')+'>'+body+'</svg>';
+    const IC={
+      ig:'<div class="ic t-ig">'+svg('#fff','<rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.6"/>',1)+'</div>',
+      bbc:'<div class="ic t-bbc"><i>B</i><i>B</i><i>C</i></div>',
+      thn:'<div class="ic t-thn">'+svg('#fff','<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M12 8v5M12 16h.01"/>',1)+'</div>',
+      gh:'<div class="ic t-gh">'+svg('#e9eef6','<path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.4-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5a3.9 3.9 0 0 1 1-2.7c-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7a3.9 3.9 0 0 1 1 2.7c0 3.9-2.4 4.7-4.6 5 .4.3.7.9.7 1.9V21c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/>')+'</div>',
+      sub:'<div class="ic t-sub">'+svg('#fff','<path d="M5 4h14v3H5zM5 9h14v3H5zM5 14h14v7l-7-4-7 4z"/>')+'</div>',
+      msg:'<div class="ic t-msg">'+svg('#fff','<path d="M12 4C7 4 3 7.3 3 11.4c0 2.3 1.3 4.4 3.3 5.8L5.6 20l3.4-1.8c.9.2 1.9.4 3 .4 5 0 9-3.3 9-7.4S17 4 12 4z"/>')+'</div>',
+      scam:'<div class="ic t-scam">'+svg('#fff','<path d="M5 21V4h11l-1.5 4L16 12H5"/>',1)+'</div>',
+      tip:'<div class="ic t-notesapp">'+svg('#5a4300','<path d="M7 8h10M7 12h10M7 16h6"/>',1)+'</div>',
+      inst:'<div class="ic t-term">'+svg('#ff7a2f','<path d="M12 15V3M8 7l4-4 4 4M5 12v8h14v-8"/>',1)+'</div>',
+      wx:e=>'<div class="ic t-wx">'+e+'</div>',
+      cal:(m,d)=>'<div class="ic t-cal"><b>'+m+'</b><i>'+d+'</i></div>'
+    };
+    // tip of the day (changes daily)
+    const TIPS=['Use a different password for every account. A password manager makes it easy.','Turn on two-step verification for your email first. It is the key to everything else.','Update your phone tonight. Most updates fix security holes.','If a message is urgent and asks for money or codes, check it another way first.','Never read a one-time passcode out to anyone, even "your bank".','Check the sender address, not just the name. Lookalike domains are everywhere.','Back up your photos and files. Ransomware hates backups.','Lock your SIM with a PIN to make SIM-swap fraud harder.','Public Wi-Fi? Avoid logging in to banking unless you are on a VPN or mobile data.','Review which apps can see your location and microphone.','Freeze your credit file if you are not applying for credit soon.','Use a passkey wherever a site offers one. It cannot be phished.','Search your email on haveibeenpwned.com to see if it was in a breach.','Hover over links before clicking. The real address is what counts.'];
+    const day=Math.floor((Date.now()-new Date(new Date().getFullYear(),0,0))/864e5);
+    const MS=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+    const pt=window.__nextPatchTuesday();
+    const ptDays=Math.round((pt-new Date(new Date().toDateString()))/864e5);
+    const N=[
+      {ic:IC.tip,t:'Tip of the day',p:TIPS[day%TIPS.length],open:'notes'},
+      {ic:IC.cal(MS[pt.getMonth()],pt.getDate()),t:'Patch Tuesday',p:(ptDays===0?'Today':ptDays===1?'Tomorrow':'In '+ptDays+' days')+' · Microsoft security updates. Time to update.',open:'calendar'},
+      {ic:IC.scam,t:'Spot the Scam',p:'New challenge: can you spot all 8 scams? 🚩',open:'scam'},
+      {ic:IC.sub,t:'Substack',p:'Cybernuel: a new issue every week. Security, explained plainly.',open:'writing',
+        load:()=>window.__subP.then(it=>it&&{p:'New post: '+it[0].title,time:ago(pd(it[0].pubDate))})},
+      {ic:IC.gh,t:'GitHub',p:'37 security projects and counting.',open:'github',
+        load:()=>window.__ghP.then(l=>{ if(!l)return null; l=l.filter(r=>!r.fork&&r.name!=='cybernuel.github.io'); if(!l.length)return null;
+          return {p:'Cybernuel pushed to '+l[0].name+' · '+l.length+' public repos',time:ago(pd(l[0].pushed_at))}; })},
+      {ic:IC.msg,t:'Emmanuel',p:'Hey 👋 got a question? Tap to chat.',open:'messages'},
+      {ic:IC.thn,t:'The Hacker News',p:"Today's cybersecurity headlines.",href:'https://thehackernews.com',
+        load:()=>window.__thnP.then(it=>it&&{p:it[0].title,href:it[0].link,time:ago(pd(it[0].pubDate))})},
+      {ic:IC.bbc,t:'BBC News',p:"Today's top stories from the UK and around the world.",href:'https://www.bbc.co.uk/news',
+        load:()=>window.__bbcP.then(it=>it&&{p:it[0].title,href:it[0].link,time:ago(pd(it[0].pubDate))})},
+      {ic:IC.wx('⛅'),t:'Weather',p:"See today's forecast for London.",href:'https://www.bbc.co.uk/weather/2643743',
+        load:()=>window.__wx.then(w=>w&&{ic:IC.wx(w.icon),p:'London · '+w.temp+'° '+w.desc+' · H '+w.hi+'° L '+w.lo+'°',href:null,open:null})},
+      {ic:IC.ig,t:'Instagram',p:'thebridgeandyou: New episode out now 🎙️',open:'podcast'}
     ];
-    if(isIOS&&!standalone)items.unshift({ic:'<div class="ic t-term"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff7a2f" stroke-width="2"><path d="M12 15V3M8 7l4-4 4 4M5 12v8h14v-8"/></svg></div>',t:'Tip',p:'Tap Share ⬆︎ then “Add to Home Screen” to install Cybernuel as an app.',time:'now'});
+    if(isIOS&&!standalone)N.unshift({ic:IC.inst,t:'Install Cybernuel',p:'Tap Share ⬆︎ then “Add to Home Screen” to get it as an app.',open:'settings'});
     const box=document.getElementById('notes');
-    // weather arrives as the last notification
-    const wxSlot={ic:'<div class="ic t-wx">⛅</div>',t:'Weather',p:'',time:'now',wait:true};
-    items.push(wxSlot);
-    window.__wx.then(w=>{ if(!w)return; wxSlot.ic='<div class="ic t-wx">'+w.icon+'</div>'; wxSlot.p='London · '+w.temp+'° '+w.desc+' · H '+w.hi+'° L '+w.lo+'°'; wxSlot.ready=true; if(wxSlot.due)post(wxSlot); });
+    const wait=ms=>new Promise(r=>setTimeout(r,reduce?0:ms));
+    const within=(pr,ms)=>Promise.race([pr.catch(()=>null),new Promise(r=>setTimeout(()=>r(null),ms))]);
     function post(n){
-      const d=document.createElement('div');d.className='notif incoming';
+      const d=document.createElement(n.href?'a':'div'); d.className='notif incoming';
+      if(n.href){d.href=n.href;d.target='_blank';d.rel='noopener';}
+      else if(n.open){d.setAttribute('role','button');d.tabIndex=0;
+        const go=()=>open(n.open); d.addEventListener('click',go); d.addEventListener('keydown',e=>{if(e.key==='Enter')go();});}
       d.innerHTML=n.ic+'<div><h4></h4><p></p></div><time></time>';
-      d.querySelector('h4').textContent=n.t;d.querySelector('p').textContent=n.p;d.querySelector('time').textContent=n.time;
-      box.prepend(d);
-      if(navigator.vibrate)try{navigator.vibrate(25)}catch(e){}
+      d.querySelector('h4').textContent=n.t; d.querySelector('p').textContent=n.p; d.querySelector('time').textContent=n.time||'now';
+      box.prepend(d); box.scrollTop=0;
+      if(navigator.vibrate)try{navigator.vibrate(15)}catch(e){}
     }
-    items.forEach((n,i)=>setTimeout(()=>{
-      if(n.wait){ n.due=true; if(n.ready)post(n); return; }
-      post(n);
-    },reduce?0:(window.__bootDelay||0)+1300+i*1500));
+    (async()=>{
+      await wait((window.__bootDelay||0)+1200);
+      for(const n of N){
+        if(n.load){ const r=await within(n.load(),2500); if(r)Object.assign(n,r); }
+        post(n); await wait(520);
+      }
+    })();
   })();
 
   // network wallpaper
@@ -972,11 +1016,11 @@ a{color:inherit}
   }
   mfa.addEventListener('click',unlock);
   let sy=null;
-  lock.addEventListener('pointerdown',e=>{sy=e.clientY;});
+  lock.addEventListener('pointerdown',e=>{ if(e.target.closest('#notes')){sy=null;return;} sy=e.clientY;});
   lock.addEventListener('pointermove',e=>{if(sy===null||unlocked)return;const dy=Math.min(0,e.clientY-sy);lock.style.transform='translateY('+dy*.6+'px)';});
   lock.addEventListener('pointerup',e=>{if(sy===null)return;const dy=e.clientY-sy;lock.style.transform='';sy=null;if(dy<-60)unlock();});
   lock.addEventListener('pointercancel',()=>{sy=null;lock.style.transform='';});
-  lock.addEventListener('wheel',e=>{if(e.deltaY>20)unlock();},{passive:true});
+  lock.addEventListener('wheel',e=>{ if(e.target.closest('#notes'))return; if(e.deltaY>20)unlock();},{passive:true});
   addEventListener('keydown',e=>{ if(!unlocked&&(e.key==='Enter'||e.key===' '||e.key==='ArrowUp')){e.preventDefault();unlock();}
     if(e.key==='Escape')closeAll(); });
 
@@ -1063,7 +1107,7 @@ a{color:inherit}
     }
     let done=false;
     loaders.github=function(){ if(done)return; done=true; render(FALLBACK,false);
-      fetch('https://api.github.com/users/Cybernuel/repos?per_page=100&sort=pushed').then(r=>{if(!r.ok)throw 0;return r.json();}).then(list=>{
+      window.__ghP.then(list=>{ if(!list)return;
         list=list.filter(r=>!r.fork&&r.name!=='cybernuel.github.io'); if(!list.length)return;
         $('#ghCount').textContent=list.length;
         const lc={}; list.forEach(r=>{if(r.language)lc[r.language]=(lc[r.language]||0)+1;});
@@ -1078,8 +1122,7 @@ a{color:inherit}
   (function(){
     let done=false;
     loaders.writing=function(){ if(done)return; done=true;
-      fetch('https://api.rss2json.com/v1/api.json?rss_url='+encodeURIComponent('https://cybernuel.substack.com/feed'))
-        .then(r=>r.json()).then(j=>{ if(j.status!=='ok'||!j.items||!j.items.length)return;
+      window.__subP.then(items=>{ if(!items)return; const j={items};
           const box=$('#posts'); $('#postsHead').hidden=false;
           j.items.slice(0,4).forEach(it=>{ const r=document.createElement('div'); r.className='row post-row';
             r.innerHTML='<div><small></small><span></span></div><a class="go" target="_blank" rel="noopener">Read</a>';
@@ -1166,6 +1209,8 @@ a{color:inherit}
   // calendar
   (function(){
     const EV=[{m:10,d:9,t:"Wifey's birthday 🎂",n:'Every year'}];
+    { const t=new Date(); for(let k=0;k<12;k++){ const p=window.__patchTuesday(t.getFullYear(),t.getMonth()+k); EV.push({y:p.getFullYear(),m:p.getMonth(),d:p.getDate(),t:'Patch Tuesday 🛡️',n:'Microsoft security updates',soon:k<2}); } }
+    const hit=(e,d)=>e.m===d.getMonth()&&e.d===d.getDate()&&(e.y===undefined||e.y===d.getFullYear());
     const MN=['January','February','March','April','May','June','July','August','September','October','November','December'];
     const now=new Date(); let vy=now.getFullYear(), vm=now.getMonth();
     document.getElementById('calDow').textContent=now.toLocaleDateString('en-GB',{weekday:'short'}).toUpperCase();
@@ -1179,12 +1224,12 @@ a{color:inherit}
         const el=document.createElement('div'); el.className='d'; el.textContent=d.getDate();
         if(d.getMonth()!==vm)el.classList.add('out');
         if(d.toDateString()===now.toDateString())el.classList.add('today');
-        if(EV.some(e=>e.m===d.getMonth()&&e.d===d.getDate())){el.classList.add('ev');el.title=EV.find(e=>e.m===d.getMonth()&&e.d===d.getDate()).t;}
+        if(EV.some(e=>hit(e,d))){el.classList.add('ev');el.title=EV.filter(e=>hit(e,d)).map(e=>e.t).join(', ');}
         g.appendChild(el); }
       const list=document.getElementById('calList'); list.innerHTML='';
       const today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
-      EV.map(e=>{let dt=new Date(today.getFullYear(),e.m,e.d); if(dt<today)dt=new Date(today.getFullYear()+1,e.m,e.d); return {...e,dt,days:Math.round((dt-today)/864e5)};})
-        .sort((a,b)=>a.dt-b.dt).forEach(e=>{
+      EV.filter(e=>e.y===undefined||e.soon).map(e=>{let dt=e.y!==undefined?new Date(e.y,e.m,e.d):new Date(today.getFullYear(),e.m,e.d); if(e.y===undefined&&dt<today)dt=new Date(today.getFullYear()+1,e.m,e.d); return {...e,dt,days:Math.round((dt-today)/864e5)};})
+        .filter(e=>e.days>=0).sort((a,b)=>a.dt-b.dt).slice(0,3).forEach(e=>{
           const r=document.createElement('div'); r.className='ev-row';
           r.innerHTML='<div class="dd"><small></small></div><div><b></b><span></span></div>';
           r.querySelector('small').textContent=MN[e.m].slice(0,3).toUpperCase();
