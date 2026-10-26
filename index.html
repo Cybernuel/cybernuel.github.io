@@ -425,6 +425,71 @@ a{color:inherit}
 .device.light .flow span{color:#0e8a85}
 @media (min-width:1100px) and (hover:hover){ .device.light:has(#home.on) .status{background:rgba(255,255,255,.6)} }
 
+
+/* ---------- Notification Centre + Control Centre ---------- */
+.mb-btn{display:none;color:inherit;padding:2px 4px;border-radius:6px}
+.edge{position:absolute;left:0;right:0;top:0;height:calc(34px + env(safe-area-inset-top,0px));z-index:8990;touch-action:none}
+.dim{position:absolute;inset:0;z-index:9700;background:#000;opacity:0;pointer-events:none;transition:opacity .1s}
+.boot{z-index:9500!important}.toast{z-index:9600!important}
+.toast{width:max-content;max-width:min(320px,calc(100% - 48px));text-align:center;line-height:1.35}
+.ncenter,.ccenter{position:absolute;inset:0;z-index:9000;color:#f4f6fa;-webkit-user-select:none;user-select:none}
+.ncenter{display:flex;flex-direction:column;background:rgba(10,14,26,.62);backdrop-filter:blur(30px) saturate(1.3);-webkit-backdrop-filter:blur(30px) saturate(1.3);padding-top:calc(46px + env(safe-area-inset-top,0px));padding-bottom:calc(14px + env(safe-area-inset-bottom,0px));transform:translateY(-100%);transition:transform .42s cubic-bezier(.2,.85,.2,1)}
+.ncenter.open{transform:none}
+.nc-head{text-align:center}
+.nc-date{font-weight:600;font-size:17px;opacity:.9}
+.nc-time{font-family:-apple-system,BlinkMacSystemFont,var(--display);font-weight:700;font-size:clamp(64px,19vw,84px);line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.nc-bar{display:flex;align-items:center;gap:10px;margin:18px 0 8px}
+.nc-bar b{font-size:20px;font-weight:700;margin-right:auto}
+.nc-dnd{font-size:12px;padding:4px 9px;border-radius:999px;background:rgba(94,92,230,.35)}
+.nc-bar button{font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.14)}
+.nc-list{flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:8px;overscroll-behavior:contain;touch-action:pan-y;padding-bottom:12px;scrollbar-width:none}
+.nc-list::-webkit-scrollbar{display:none}
+.nc-list .notif{flex:none;cursor:pointer;text-decoration:none;color:#f4f6fa;--fg:#f4f6fa;--muted:#c9d1de;background:rgba(40,46,60,.55)}
+.nc-list .notif p{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.nc-empty{text-align:center;color:#c9d1de;font-size:15px;margin-top:30px}
+.nc-grab{width:134px;height:5px;border-radius:3px;background:#f4f6fa;opacity:.75;margin:6px auto 0;flex:none}
+.ccenter{background:rgba(4,7,14,.5);backdrop-filter:blur(28px) saturate(1.2);-webkit-backdrop-filter:blur(28px) saturate(1.2);padding-top:calc(58px + env(safe-area-inset-top,0px));opacity:0;transition:opacity .3s}
+.ccenter.open{opacity:1}
+.cc-grid{--g:14px;--w:min(calc(100vw - 40px),348px);width:var(--w);margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:calc((var(--w) - 3 * var(--g)) / 4);gap:var(--g);transform:scale(.9) translateY(-36px);transform-origin:top right;transition:transform .38s cubic-bezier(.2,.9,.25,1.1)}
+.ccenter.open .cc-grid{transform:none}
+.ncenter.dragging,.ccenter.dragging,.ccenter.dragging .cc-grid{transition:none}
+.cc-tile{border-radius:22px;background:rgba(40,46,60,.62);color:#f4f6fa;display:grid;place-items:center;min-width:0;text-decoration:none;position:relative;overflow:hidden}
+.cc-tile:active{transform:scale(.96)}
+.cc-conn{grid-column:span 2;grid-row:span 2;grid-template-columns:1fr 1fr;padding:12px;gap:8px;place-items:center}
+.cc-rt{width:min(58px,100%);aspect-ratio:1;border-radius:50%;background:rgba(255,255,255,.16);display:grid;place-items:center;color:#f4f6fa;transition:background .2s}
+.cc-rt.on{background:var(--on)}
+.cc-media{grid-column:span 2;grid-row:span 2;display:flex;flex-direction:column;justify-content:space-between;align-items:stretch;padding:14px;text-align:left}
+.cc-art{width:44px;height:44px;border-radius:10px;background:linear-gradient(150deg,#2a1a40,#120c22);color:#c9a6ff;display:grid;place-items:center}
+.cc-mt b{display:block;font-size:14px;line-height:1.2}
+.cc-mt small{display:block;font-size:12px;color:#c9d1de;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cc-ctrl{display:flex;justify-content:space-between;align-items:center;color:#f4f6fa}
+.cc-sq[aria-pressed="true"]{background:#f4f6fa;color:#0b1322}
+.cc-sq[data-cc="dnd"][aria-pressed="true"]{color:#5e5ce6}
+.cc-sq[data-cc="torch"][aria-pressed="true"]{color:#0b1322}
+.cc-wide{grid-column:span 2;display:flex;align-items:center;justify-content:flex-start;gap:10px;padding:0 14px;text-align:left}
+.cc-ico{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.16);display:grid;place-items:center;flex:none}
+.cc-lab b{display:block;font-size:13px}.cc-lab small{font-size:12px;color:#c9d1de}
+.cc-wide.on{background:#f4f6fa;color:#0b1322}.cc-wide.on .cc-ico{background:#ff9f0a;color:#fff}.cc-wide.on small{color:#4b5565}
+.cc-slider{grid-row:span 2;place-items:end center;padding-bottom:16px;touch-action:none;cursor:ns-resize}
+.cc-slider i{position:absolute;left:0;right:0;bottom:0;background:#f4f6fa;pointer-events:none}
+.cc-slider svg{position:relative;color:#8e95a3;mix-blend-mode:normal}
+.cc-slider:focus-visible{outline:2px solid #fff}
+.cc-slider:active{transform:none}
+.st-moon,.st-plane{display:inline-flex;align-items:center}
+.st-moon[hidden],.st-plane[hidden]{display:none}
+@media (prefers-reduced-motion:reduce){.ncenter,.ccenter,.cc-grid{transition:none!important}}
+@media (min-width:1100px) and (hover:hover){
+  .edge{display:none}
+  .mb-btn{display:inline-grid;place-items:center;order:4}
+  .status .left{cursor:pointer;padding:2px 6px;border-radius:6px}
+  .status .left:hover,.mb-btn:hover{background:rgba(255,255,255,.12)}
+  .ncenter{inset:auto;top:38px;right:10px;bottom:10px;width:380px;border-radius:20px;padding:16px 12px;transform:translateX(calc(100% + 20px));border:1px solid rgba(255,255,255,.12);box-shadow:0 30px 80px rgba(0,0,0,.5)}
+  .nc-head,.nc-grab{display:none}
+  .nc-bar{margin-top:0}
+  .ccenter{inset:auto;top:38px;right:10px;width:auto;height:auto;padding:14px;border-radius:22px;border:1px solid rgba(255,255,255,.12);box-shadow:0 30px 80px rgba(0,0,0,.5);background:rgba(16,22,36,.72)}
+  .cc-grid{--w:316px}
+}
+
 /* ---------- Mac desktop mode (wide screens with a mouse) ---------- */
 @media (min-width:1100px) and (hover:hover){
   body{background:var(--desk)}
@@ -477,7 +542,7 @@ a{color:inherit}
     <div class="status inset">
       <div class="menu"><b>Cybernuel</b><span>File</span><span>Edit</span><span>View</span><span>Window</span><span>Help</span></div>
       <div class="left"><span id="sbTime">10:26</span></div>
-      <div class="right"><span class="sec"><span class="dot"></span>SECURE</span><span class="ios-ic" aria-hidden="true"><svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 2.2c2.4 0 4.6.9 6.2 2.5l1.2-1.3C13.4 1.4 10.8.4 8 .4S2.6 1.4.6 3.4l1.2 1.3C3.4 3.1 5.6 2.2 8 2.2zm0 3.4c1.5 0 2.9.6 3.9 1.6l1.2-1.3C11.8 4.6 10 3.8 8 3.8s-3.8.8-5.1 2.1l1.2 1.3c1-1 2.4-1.6 3.9-1.6zM8 9a1.6 1.6 0 1 0 0 3.2A1.6 1.6 0 0 0 8 9z"/></svg><span class="batt"><i></i></span></span></div>
+      <div class="right"><span class="sec"><span class="dot"></span>SECURE</span><span class="ios-ic" aria-hidden="true"><span class="st-moon" hidden><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></span><span class="st-plane" hidden><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15.5v-2L13.5 9V4a1.5 1.5 0 0 0-3 0v5L3 13.5v2l7.5-2.3V18l-2 1.5V21l3.5-1 3.5 1v-1.5l-2-1.5v-4.8z"/></svg></span><svg class="st-sig" width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg class="st-wifi" width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 2.2c2.4 0 4.6.9 6.2 2.5l1.2-1.3C13.4 1.4 10.8.4 8 .4S2.6 1.4.6 3.4l1.2 1.3C3.4 3.1 5.6 2.2 8 2.2zm0 3.4c1.5 0 2.9.6 3.9 1.6l1.2-1.3C11.8 4.6 10 3.8 8 3.8s-3.8.8-5.1 2.1l1.2 1.3c1-1 2.4-1.6 3.9-1.6zM8 9a1.6 1.6 0 1 0 0 3.2A1.6 1.6 0 0 0 8 9z"/></svg><span class="batt"><i></i></span></span><button type="button" class="mb-btn" id="mbCC" aria-label="Control Centre"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="5" rx="2.5"/><circle cx="16.5" cy="7.5" r="1.2" fill="currentColor"/><rect x="3" y="14" width="18" height="5" rx="2.5"/><circle cx="7.5" cy="16.5" r="1.2" fill="currentColor"/></svg></button></div>
     </div>
 
     <!-- LOCK -->
@@ -838,6 +903,42 @@ a{color:inherit}
       </div>
     </section>
 
+
+    <div class="edge" id="edge" aria-hidden="true"></div>
+
+    <div class="ncenter" id="ncenter" hidden role="dialog" aria-label="Notification Centre">
+      <div class="nc-head inset"><div class="nc-date" id="ncDate">Monday 26 October</div><div class="nc-time" id="ncTime">09:41</div></div>
+      <div class="nc-bar inset"><b>Notification Centre</b><span class="nc-dnd" id="ncDnd" hidden>🌙 Do Not Disturb</span><button type="button" id="ncClear">Clear</button></div>
+      <div class="nc-list inset" id="ncList"></div>
+      <div class="nc-grab" aria-hidden="true"></div>
+    </div>
+
+    <div class="ccenter" id="ccenter" hidden role="dialog" aria-label="Control Centre">
+      <div class="cc-grid" id="ccGrid">
+        <div class="cc-tile cc-conn">
+          <button type="button" class="cc-rt" data-cc="airplane" style="--on:#ff9f0a" aria-label="Airplane mode" aria-pressed="false"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15.5v-2L13.5 9V4a1.5 1.5 0 0 0-3 0v5L3 13.5v2l7.5-2.3V18l-2 1.5V21l3.5-1 3.5 1v-1.5l-2-1.5v-4.8z"/></svg></button>
+          <button type="button" class="cc-rt on" data-cc="cellular" style="--on:#30d158" aria-label="Mobile data" aria-pressed="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V9M8 13l4-4 4 4M5 8a10 10 0 0 1 14 0"/></svg></button>
+          <button type="button" class="cc-rt on" data-cc="wifi" style="--on:#0a84ff" aria-label="Wi-Fi" aria-pressed="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8.5a15 15 0 0 1 20 0M5.5 12a10 10 0 0 1 13 0M9 15.5a5 5 0 0 1 6 0"/><circle cx="12" cy="19" r="1.2" fill="currentColor"/></svg></button>
+          <button type="button" class="cc-rt on" data-cc="bluetooth" style="--on:#0a84ff" aria-label="Bluetooth" aria-pressed="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10-5 4V3l5 4L7 17"/></svg></button>
+        </div>
+        <a class="cc-tile cc-media" href="https://youtube.com/@thebridgeandyou" target="_blank" rel="noopener" id="ccMedia">
+          <div class="cc-art"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></div>
+          <div class="cc-mt"><b>The Bridge and You</b><small id="ccMediaSub">New episode out now</small></div>
+          <div class="cc-ctrl"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M19 5v14l-9-7zM10 5v14l-9-7z"/></svg></span><span class="pl"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4v16l13-8z"/></svg></span><span><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5v14l9-7zM14 5v14l9-7z"/></svg></span></div>
+        </a>
+        <button type="button" class="cc-tile cc-sq" data-cc="lock" aria-label="Lock screen"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></button>
+        <button type="button" class="cc-tile cc-sq" data-cc="dnd" aria-label="Do Not Disturb" aria-pressed="false"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button>
+        <button type="button" class="cc-tile cc-wide" data-cc="theme" aria-label="Appearance"><span class="cc-ico" id="ccThemeIco"></span><span class="cc-lab"><b>Appearance</b><small id="ccThemeLab">Dark</small></span></button>
+        <div class="cc-tile cc-slider" data-slider="bright" role="slider" aria-label="Brightness" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" tabindex="0"><i style="height:100%"></i><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></div>
+        <div class="cc-tile cc-slider" data-slider="vol" role="slider" aria-label="Volume" aria-valuemin="0" aria-valuemax="100" aria-valuenow="60" tabindex="0"><i style="height:60%"></i><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"/></svg></div>
+        <button type="button" class="cc-tile cc-sq" data-cc="torch" aria-label="Torch" aria-pressed="false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2h8v4l-2 3v12a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V9L8 6z"/><path d="M12 13v2"/></svg></button>
+        <button type="button" class="cc-tile cc-sq" data-cc="camera" aria-label="Camera"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg></button>
+        <button type="button" class="cc-tile cc-sq" data-cc="qr" aria-label="QR code"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6" height="6"/><rect x="14" y="4" width="6" height="6"/><rect x="4" y="14" width="6" height="6"/><path d="M14 14h2v2h-2zM18 18h2v2h-2zM18 14h2M14 18v2"/></svg></button>
+        <button type="button" class="cc-tile cc-sq" data-cc="rotate" aria-label="Rotation lock" aria-pressed="false"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="10" width="8" height="7" rx="1.5"/><path d="M10 10V8.5a2 2 0 0 1 4 0V10M20 12a8 8 0 0 1-14.3 4.9M4 12a8 8 0 0 1 14.3-4.9M18.5 3.5v3.6h-3.6M5.5 20.5v-3.6h3.6"/></svg></button>
+      </div>
+    </div>
+    <div class="dim" id="dim" aria-hidden="true"></div>
+
     <div class="toast" id="toast">Copied</div>
   </div>
 </div>
@@ -976,6 +1077,7 @@ a{color:inherit}
       if(n.href){d.href=n.href;d.target='_blank';d.rel='noopener';}
       else if(n.open){d.setAttribute('role','button');d.tabIndex=0;
         const go=()=>open(n.open); d.addEventListener('click',go); d.addEventListener('keydown',e=>{if(e.key==='Enter')go();});}
+      if(n.open)d.dataset.nopen=n.open;
       d.innerHTML=n.ic+'<div><h4></h4><p></p></div><time></time>';
       d.querySelector('h4').textContent=n.t; d.querySelector('p').textContent=n.p; d.querySelector('time').textContent=n.time||'now';
       box.prepend(d); box.scrollTop=0;
@@ -1022,7 +1124,7 @@ a{color:inherit}
   lock.addEventListener('pointercancel',()=>{sy=null;lock.style.transform='';});
   lock.addEventListener('wheel',e=>{ if(e.target.closest('#notes'))return; if(e.deltaY>20)unlock();},{passive:true});
   addEventListener('keydown',e=>{ if(!unlocked&&(e.key==='Enter'||e.key===' '||e.key==='ArrowUp')){e.preventDefault();unlock();}
-    if(e.key==='Escape')closeAll(); });
+    if(e.key==='Escape'){ if(window.__closePanels&&window.__closePanels())return; closeAll(); } });
 
   // sheets
   const valid=['cases','about','career','certs','helpline','writing','contact','terminal','photos','podcast','calendar','notes','messages','settings','github','scam','files','share','hire'];
@@ -1206,6 +1308,109 @@ a{color:inherit}
     if(mq.addEventListener)mq.addEventListener('change',apply);
     apply();
   })();
+
+  // ---------- Notification Centre (pull from top-left/middle) + Control Centre (pull from top-right) ----------
+  (function(){
+    const dev=$('#device'), edge=$('#edge'), nc=$('#ncenter'), cc=$('#ccenter'), grid=$('#ccGrid');
+    let cur=null;
+    function renderNC(){
+      const d=new Date();
+      $('#ncDate').textContent=d.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',timeZone:'Europe/London'});
+      $('#ncTime').textContent=d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',timeZone:'Europe/London'});
+      const list=$('#ncList'); list.innerHTML='';
+      const items=[...document.querySelectorAll('#notes .notif')];
+      items.forEach(n=>{ const c=n.cloneNode(true); c.classList.remove('incoming'); c.removeAttribute('tabindex'); list.appendChild(c); });
+      if(!items.length){ const e=document.createElement('p'); e.className='nc-empty'; e.textContent='No notifications'; list.appendChild(e); }
+      $('#ncClear').hidden=!items.length;
+    }
+    function setP(panel,p){ p=Math.max(0,Math.min(1,p));
+      if(panel===nc) nc.style.transform='translateY('+((p-1)*100)+'%)';
+      else { cc.style.opacity=p; grid.style.transform='scale('+(.9+.1*p)+') translateY('+(-36*(1-p))+'px)'; } }
+    function clearInline(){ nc.style.transform=''; cc.style.opacity=''; grid.style.transform=''; }
+    function openP(panel){ if(cur&&cur!==panel)closeP(cur,true); cur=panel; if(panel===nc)renderNC(); else syncCC();
+      panel.hidden=false; panel.classList.add('dragging'); if(!panel._dragging)setP(panel,0);
+      requestAnimationFrame(()=>requestAnimationFrame(()=>{ panel.classList.remove('dragging'); clearInline(); panel.classList.add('open'); panel._dragging=false; })); }
+    function closeP(panel,instant){ if(!panel||panel.hidden)return; panel.classList.remove('dragging'); clearInline(); panel.classList.remove('open'); if(cur===panel)cur=null;
+      clearTimeout(panel._t); panel._t=setTimeout(()=>{ if(!panel.classList.contains('open'))panel.hidden=true; },instant||reduce?0:420); }
+    window.__closePanels=()=>{ if(!cur)return false; closeP(cur); return true; };
+
+    // pull down from the top edge (phones)
+    let g=null;
+    edge.addEventListener('pointerdown',e=>{ const r=dev.getBoundingClientRect(); const right=(e.clientX-r.left)/r.width>.62;
+      const panel=right?cc:nc; if(cur===panel)return; if(cur)closeP(cur,true);
+      g={y:e.clientY,panel,moved:false}; panel._dragging=true; panel.hidden=false; panel.classList.add('dragging'); if(panel===nc)renderNC(); else syncCC(); setP(panel,0);
+      edge.setPointerCapture(e.pointerId); });
+    edge.addEventListener('pointermove',e=>{ if(!g)return; const dy=e.clientY-g.y; if(dy>4)g.moved=true; setP(g.panel,dy/(g.panel===nc?dev.clientHeight*.7:260)); });
+    const endEdge=e=>{ if(!g)return; const dy=e.clientY-g.y, panel=g.panel; g=null; panel.classList.remove('dragging');
+      if(dy>60){ cur=panel; panel._dragging=false; clearInline(); panel.classList.add('open'); }
+      else { panel._dragging=false; closeP(panel); } };
+    edge.addEventListener('pointerup',endEdge); edge.addEventListener('pointercancel',endEdge);
+
+    // swipe up / tap empty space to dismiss
+    [nc,cc].forEach(panel=>{ let s=null;
+      panel.addEventListener('pointerdown',e=>{ if(e.target.closest('.cc-slider'))return; s={y:e.clientY,t:e.target}; });
+      panel.addEventListener('pointerup',e=>{ if(!s)return; const dy=e.clientY-s.y, t=s.t; s=null;
+        if(dy<-50){ closeP(panel); return; }
+        if(Math.abs(dy)<6&&(t===panel||t===grid||t.classList.contains('nc-list')||t.classList.contains('nc-head')||t.closest('.nc-head')||t.classList.contains('nc-grab')))closeP(panel); });
+    });
+    // tap a notification in the centre
+    $('#ncList').addEventListener('click',e=>{ const n=e.target.closest('.notif'); if(!n)return;
+      if(n.dataset.nopen){ e.preventDefault(); closeP(nc,true); open(n.dataset.nopen); } else if(n.tagName==='A'){ closeP(nc); } });
+    $('#ncClear').addEventListener('click',()=>{ $('#notes').innerHTML=''; renderNC(); });
+
+    // Mac menu bar: clock opens Notification Centre, toggle icon opens Control Centre
+    $('.status .left').addEventListener('click',()=>{ if(!isDesk())return; cur===nc?closeP(nc):openP(nc); });
+    $('#mbCC').addEventListener('click',e=>{ e.stopPropagation(); cur===cc?closeP(cc):openP(cc); });
+    document.addEventListener('pointerdown',e=>{ if(!isDesk()||!cur)return; if(e.target.closest('#ncenter,#ccenter,.status'))return; closeP(cur); });
+
+    // ----- Control Centre controls -----
+    const state={airplane:false,cellular:true,wifi:true,bluetooth:true,dnd:false,rotate:false};
+    const SUN='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
+    const MOON='<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>';
+    function syncCC(){
+      const light=dev.classList.contains('light'), th=grid.querySelector('[data-cc="theme"]');
+      th.classList.toggle('on',light); $('#ccThemeIco').innerHTML=light?SUN:MOON; $('#ccThemeLab').textContent=light?'Light mode':'Dark mode';
+      const tb=$('#torch'); grid.querySelector('[data-cc="torch"]').setAttribute('aria-pressed',tb&&tb.getAttribute('aria-pressed')==='true'?'true':'false');
+      ['airplane','cellular','wifi','bluetooth'].forEach(k=>{ const b=grid.querySelector('[data-cc="'+k+'"]'); b.classList.toggle('on',state[k]); b.setAttribute('aria-pressed',state[k]); });
+      ['dnd','rotate'].forEach(k=>grid.querySelector('[data-cc="'+k+'"]').setAttribute('aria-pressed',state[k]));
+      document.querySelectorAll('.st-moon').forEach(x=>x.hidden=!state.dnd);
+      document.querySelectorAll('.st-plane').forEach(x=>x.hidden=!state.airplane);
+      document.querySelectorAll('.st-sig').forEach(x=>x.style.display=state.airplane||!state.cellular?'none':'');
+      document.querySelectorAll('.st-wifi').forEach(x=>x.style.display=state.wifi&&!state.airplane?'':'none');
+      $('#ncDnd').hidden=!state.dnd;
+    }
+    grid.addEventListener('click',e=>{ const b=e.target.closest('[data-cc]'); if(!b)return; const k=b.dataset.cc;
+      if(navigator.vibrate)try{navigator.vibrate(10)}catch(_){}
+      if(k in state){ state[k]=!state[k];
+        if(k==='airplane'){ if(state.airplane){state.wifi=false;state.cellular=false;state.bluetooth=false;} else {state.wifi=true;state.cellular=true;state.bluetooth=true;} }
+        if(k==='dnd')show(state.dnd?'Do Not Disturb on':'Do Not Disturb off');
+        if(k==='rotate')show(state.rotate?'Portrait orientation lock on':'Portrait orientation lock off');
+        syncCC(); return; }
+      if(k==='theme'){ const light=dev.classList.contains('light'); const t=document.querySelector('[data-theme-opt="'+(light?'dark':'light')+'"]'); if(t)t.click(); syncCC(); return; }
+      if(k==='torch'){ const t=$('#torch'); if(t)t.click(); syncCC(); if(home.classList.contains('on'))show('Torch works best on the lock screen 🔦'); return; }
+      if(k==='lock'){ closeP(cc,true); const r=$('#relock'); if(r)r.click(); return; }
+      if(k==='camera'){ closeP(cc,true); open('photos'); return; }
+      if(k==='qr'){ closeP(cc,true); open('share'); return; }
+    });
+    // sliders: brightness is real, volume is for show
+    grid.querySelectorAll('.cc-slider').forEach(sl=>{
+      const fill=sl.querySelector('i'); let v=sl.dataset.slider==='bright'?1:.6, drag=false;
+      const set=nv=>{ v=Math.max(0,Math.min(1,nv)); fill.style.height=(v*100)+'%'; sl.setAttribute('aria-valuenow',Math.round(v*100));
+        if(sl.dataset.slider==='bright')$('#dim').style.opacity=((1-v)*.7).toFixed(2); };
+      const at=e=>{ const r=sl.getBoundingClientRect(); return 1-(e.clientY-r.top)/r.height; };
+      sl.addEventListener('pointerdown',e=>{ drag=true; sl.setPointerCapture(e.pointerId); set(at(e)); e.stopPropagation(); });
+      sl.addEventListener('pointermove',e=>{ if(drag)set(at(e)); });
+      sl.addEventListener('pointerup',()=>{drag=false;}); sl.addEventListener('pointercancel',()=>{drag=false;});
+      sl.addEventListener('keydown',e=>{ if(e.key==='ArrowUp'||e.key==='ArrowRight'){set(v+.1);e.preventDefault();} if(e.key==='ArrowDown'||e.key==='ArrowLeft'){set(v-.1);e.preventDefault();} });
+    });
+    syncCC();
+
+    // one-time hint after the first unlock on touch screens
+    let hinted=false; try{hinted=localStorage.getItem('cn-hint')==='1'}catch(e){}
+    if(!hinted&&!isDesk()){ new MutationObserver((m,o)=>{ if(home.classList.contains('on')){ o.disconnect();
+        setTimeout(()=>show('Pull down from the top for notifications · top-right for Control Centre',4200),1400);
+        try{localStorage.setItem('cn-hint','1')}catch(e){} } }).observe(home,{attributes:true,attributeFilter:['class']}); }
+  })();
   // calendar
   (function(){
     const EV=[{m:10,d:9,t:"Wifey's birthday 🎂",n:'Every year'}];
@@ -1278,7 +1483,8 @@ a{color:inherit}
 
   // copy
   const toast=$('#toast');
-  function show(msg){toast.textContent=msg;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),1400);}
+  function show(msg,ms){toast.textContent=msg;toast.classList.add('show');clearTimeout(show.t);show.t=setTimeout(()=>toast.classList.remove('show'),ms||1400);}
+  window.__toast=show;
   $$('[data-copy]').forEach(b=>b.addEventListener('click',()=>{
     const v=b.dataset.copy;
     navigator.clipboard.writeText(v).then(()=>show((b.dataset.label||'')+' copied')).catch(()=>{const r=document.createRange();r.selectNodeContents(b.parentElement.querySelector('span'));const s=getSelection();s.removeAllRanges();s.addRange(r);show('Selected. Copy it from there');});
