@@ -370,6 +370,54 @@ a{color:inherit}
   .status{visibility:hidden}
 }
 
+
+.t-wx{background:linear-gradient(150deg,#4aa3ff,#1f5fbf);font-size:17px}
+@media (max-width:719px){ #notes .notif:nth-child(n+4){display:none} }
+.hire-btn{margin-top:4px;justify-self:start;font-weight:600;font-size:14px;padding:9px 14px;border-radius:999px;background:var(--signal);color:#0b1322}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}
+.facts div{border:1px solid var(--line);border-radius:14px;padding:12px;background:var(--tint);min-width:0}
+.facts small{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.facts b{display:block;font-size:14.5px;margin-top:3px}
+.bring{margin:0;padding-left:20px;display:grid;gap:8px}
+.bring li{line-height:1.5;font-size:14.5px}
+.hire-ctas{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:18px 0 12px}
+.cta{display:grid;place-items:center;padding:13px;border-radius:14px;font-weight:600;text-decoration:none;background:var(--tint2);color:var(--fg)}
+.cta.main{grid-column:1/-1;background:var(--signal);color:#0b1322}
+.eps{display:grid;gap:10px}
+.ep{display:grid;grid-template-columns:120px 1fr;gap:12px;align-items:center;text-decoration:none}
+.ep>div:last-child{min-width:0}
+.ep-thumb{position:relative;aspect-ratio:16/9;max-width:100%;border-radius:10px;overflow:hidden;background:var(--tint2)}
+.ep-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.ep-thumb span{position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-size:18px;text-shadow:0 1px 8px rgba(0,0,0,.6)}
+.ep b{display:block;font-size:14.5px;font-weight:600;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ep small{font-size:12px;color:var(--muted)}
+.ep-empty{color:var(--muted)!important;font-size:14px!important}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:4px;border-radius:12px;background:var(--tint2)}
+.seg button{padding:9px;border-radius:9px;font-weight:600;font-size:14px;color:var(--muted)}
+.seg button.on{background:var(--signal);color:#0b1322}
+
+/* ---------- light mode ---------- */
+.device{--tint:rgba(255,255,255,.03);--tint2:rgba(255,255,255,.08);color:var(--fg)}
+.lock,.status,.home,.sheet,.notif{color:var(--fg)}
+.device.light{--fg:#111827;--muted:#5b6475;--glass:rgba(255,255,255,.62);--glass-strong:rgba(244,246,250,.95);--line:rgba(15,23,42,.1);--shield:#0e8a85;--tint:rgba(15,23,42,.035);--tint2:rgba(15,23,42,.07)}
+.device.light .lock,.device.light .status{--fg:#f4f6fa;--muted:#d3dae6}
+.device.light:has(#home.on) .status{--fg:#111827}
+.device.light:has(#home.on) .batt{border-color:rgba(17,24,39,.5)}
+.device.light:has(#home.on) .batt::after{background:rgba(17,24,39,.5)}
+.device.light .lock .notif{background:rgba(255,255,255,.72);--fg:#111827;--muted:#4b5565;color:#111827;border-color:rgba(255,255,255,.5)}
+.device.light .wall.home-mode .shade{background:rgba(242,244,248,.6)}
+.device.light .body p{color:#384152}
+.device.light .row,.device.light .case,.device.light .badge,.device.light .gh-repo,.device.light .gh-stats div,.device.light .ev-row,.device.light .sc-card{background:var(--tint)}
+.device.light .close,.device.light .cal-nav button,.device.light .fi.lnk,.device.light .share-btns button+button{background:var(--tint2)}
+.device.light .bubble.them{background:var(--tint2)}
+.device.light .chips button{color:#1f6fc4}
+.device.light .sc-prog i{background:rgba(15,23,42,.12)}
+.device.light .sc-next,.device.light .toast{color:#fff}
+.device.light .term{--fg:#e9eef6;--muted:#93a2b8;--line:rgba(160,190,230,.14)}
+.device.light .wx .tag,.device.light .widget .tag{color:var(--shield)}
+.device.light .flow span{color:#0e8a85}
+@media (min-width:1100px) and (hover:hover){ .device.light:has(#home.on) .status{background:rgba(255,255,255,.6)} }
+
 /* ---------- Mac desktop mode (wide screens with a mouse) ---------- */
 @media (min-width:1100px) and (hover:hover){
   body{background:var(--desk)}
@@ -459,6 +507,7 @@ a{color:inherit}
         <div class="tag"><span class="dot"></span>Status · open to roles</div>
         <h2>Defending people, <em>not just</em> networks.</h2>
         <div class="meta"><span class="chip">SOC analysis</span><span class="chip">Detection eng.</span><span class="chip">MSc Cybersecurity</span></div>
+        <button type="button" class="hire-btn" data-open="hire">Hire me <span aria-hidden="true">→</span></button>
       </div>
 
       <div class="grid">
@@ -649,7 +698,10 @@ a{color:inherit}
         <p>Outside of security, I'm part of The Bridge and You (TBAY), a storytelling podcast about life in the UK diaspora: the moves, the wins, the in-between.</p>
         <div class="contact">
           <div class="row"><div><small>YouTube</small><span>@thebridgeandyou</span></div><a class="go" href="https://youtube.com/@thebridgeandyou" target="_blank" rel="noopener">Watch</a></div>
+          <div class="row"><div><small>Instagram</small><span>@thebridgeandyou</span></div><a class="go" href="https://www.instagram.com/thebridgeandyou" target="_blank" rel="noopener">Follow</a></div>
         </div>
+        <div class="sub" id="epHead">Latest episodes</div>
+        <div class="eps" id="eps"><p class="ep-empty">Loading episodes…</p></div>
       </div>
     </section>
 
@@ -687,7 +739,13 @@ a{color:inherit}
     <section class="sheet" id="s-settings" aria-label="Settings">
       <header class="inset"><div><div class="k">Cybernuel OS 1.0</div><h1>Settings</h1></div><button class="close" data-close aria-label="Close"><svg width="14" height="14" viewBox="0 0 14 14" stroke="currentColor" stroke-width="2"><path d="M2 2l10 10M12 2L2 12"/></svg></button></header>
       <div class="body inset">
-        <div class="sub" style="margin-top:0">Wallpaper</div>
+        <div class="sub" style="margin-top:0">Appearance</div>
+        <div class="seg" id="themeSeg" role="radiogroup" aria-label="Appearance">
+          <button type="button" role="radio" data-theme-opt="dark">Dark</button>
+          <button type="button" role="radio" data-theme-opt="light">Light</button>
+          <button type="button" role="radio" data-theme-opt="auto">Auto</button>
+        </div>
+        <div class="sub">Wallpaper</div>
         <div class="walls" id="walls">
           <button type="button" data-wall="img/wall.jpg" aria-label="Orange wall"><img src="img/wall.jpg" alt=""></button>
           <button type="button" data-wall="img/sea.jpg" aria-label="Red Sea"><img src="img/sea.jpg" alt=""></button>
@@ -742,6 +800,32 @@ a{color:inherit}
       </div>
     </section>
 
+
+    <section class="sheet" id="s-hire" aria-label="Hire me">
+      <header class="inset"><div><div class="k">For recruiters · available now</div><h1>Hire me</h1></div><button class="close" data-close aria-label="Close"><svg width="14" height="14" viewBox="0 0 14 14" stroke="currentColor" stroke-width="2"><path d="M2 2l10 10M12 2L2 12"/></svg></button></header>
+      <div class="body inset">
+        <p class="lede">Looking for a <em>SOC analyst</em>? Here's everything in one place.</p>
+        <div class="facts">
+          <div><small>Role</small><b>SOC / Security Analyst</b></div>
+          <div><small>Right to work</small><b>UK, no sponsorship</b></div>
+          <div><small>Education</small><b>MSc Cybersecurity</b></div>
+          <div><small>Certs</small><b>Security+ · CySA+ · SC-200</b></div>
+        </div>
+        <div class="sub">What I bring</div>
+        <ul class="bring">
+          <li>Hands-on SOC experience: alert triage, investigation and detection tuning in Microsoft Sentinel and Defender.</li>
+          <li>Automation: a working pipeline from Wazuh to TheHive with threat-intel enrichment and alerting.</li>
+          <li>Years on the service desk, so I explain incidents clearly to non-technical people.</li>
+        </ul>
+        <div class="hire-ctas">
+          <a class="cta main" href="cv.pdf" target="_blank" rel="noopener">View my CV</a>
+          <button type="button" class="cta" data-copy="m33tdamilare@gmail.com" data-label="Email">Copy email</button>
+          <a class="cta" href="https://linkedin.com/in/thedamilare" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+        <div class="row hire-link"><div><small>Send recruiters straight here</small><span>cybernuel.github.io/#hire</span></div><button type="button" data-copy="https://cybernuel.github.io/#hire" data-label="Link">Copy</button></div>
+      </div>
+    </section>
+
     <div class="viewer" id="viewer" hidden><button class="close" id="vclose" aria-label="Close photo"><svg width="14" height="14" viewBox="0 0 14 14" stroke="currentColor" stroke-width="2"><path d="M2 2l10 10M12 2L2 12"/></svg></button><img id="vimg" alt=""><p id="vcap"></p></div>
 
     <section class="sheet" id="s-terminal" aria-label="Terminal">
@@ -763,6 +847,11 @@ a{color:inherit}
   const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   const isDesk=()=>matchMedia('(min-width:1100px) and (hover:hover)').matches;
+  const WXC={0:['Clear','☀️'],1:['Mostly clear','🌤️'],2:['Partly cloudy','⛅'],3:['Cloudy','☁️'],45:['Fog','🌫️'],48:['Fog','🌫️'],51:['Drizzle','🌦️'],53:['Drizzle','🌦️'],55:['Drizzle','🌦️'],61:['Light rain','🌧️'],63:['Rain','🌧️'],65:['Heavy rain','🌧️'],71:['Snow','🌨️'],73:['Snow','🌨️'],75:['Heavy snow','❄️'],80:['Showers','🌦️'],81:['Showers','🌧️'],82:['Downpours','⛈️'],95:['Thunderstorm','⛈️']};
+  window.__wx=fetch('https://api.open-meteo.com/v1/forecast?latitude=51.5072&longitude=-0.1276&current=temperature_2m,weather_code,wind_speed_10m&daily=temperature_2m_max,temperature_2m_min&timezone=Europe%2FLondon&forecast_days=1')
+    .then(r=>r.json()).then(j=>{ const c=j.current, w=WXC[c.weather_code]||['Weather','🌡️'];
+      return {temp:Math.round(c.temperature_2m),desc:w[0],icon:w[1],wind:Math.round(c.wind_speed_10m),hi:Math.round(j.daily.temperature_2m_max[0]),lo:Math.round(j.daily.temperature_2m_min[0])}; })
+    .catch(()=>null);
   if(isDesk()){const h=document.getElementById('hint');if(h)h.textContent='Click or press Enter to unlock';}
 
   // boot screen (once per visit)
@@ -835,18 +924,25 @@ a{color:inherit}
     const isIOS=/iP(hone|od|ad)/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
     const standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone;
     const items=[
-      {ic:'<div class="ic t-ig"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.6"/></svg></div>',t:'Instagram',p:'thebridgeandyou liked your post.',time:'now'},
+      {ic:'<div class="ic t-ig"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.6"/></svg></div>',t:'Instagram',p:'thebridgeandyou: New episode out now 🎙️',time:'now'},
       {ic:'<div class="ic t-cal"><b>NOV</b><i>9</i></div>',t:"Wifey's birthday 🎂",p:when,time:'now'}
     ];
-    if(isIOS&&!standalone){const st=document.querySelector('#notes .notif');if(st)st.remove();}
-    if(isIOS&&!standalone)items.push({ic:'<div class="ic t-term"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff7a2f" stroke-width="2"><path d="M12 15V3M8 7l4-4 4 4M5 12v8h14v-8"/></svg></div>',t:'Tip',p:'Tap Share ⬆︎ then “Add to Home Screen” to install Cybernuel as an app.',time:'now'});
+    if(isIOS&&!standalone)items.unshift({ic:'<div class="ic t-term"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff7a2f" stroke-width="2"><path d="M12 15V3M8 7l4-4 4 4M5 12v8h14v-8"/></svg></div>',t:'Tip',p:'Tap Share ⬆︎ then “Add to Home Screen” to install Cybernuel as an app.',time:'now'});
     const box=document.getElementById('notes');
-    items.forEach((n,i)=>setTimeout(()=>{
+    // weather arrives as the last notification
+    const wxSlot={ic:'<div class="ic t-wx">⛅</div>',t:'Weather',p:'',time:'now',wait:true};
+    items.push(wxSlot);
+    window.__wx.then(w=>{ if(!w)return; wxSlot.ic='<div class="ic t-wx">'+w.icon+'</div>'; wxSlot.p='London · '+w.temp+'° '+w.desc+' · H '+w.hi+'° L '+w.lo+'°'; wxSlot.ready=true; if(wxSlot.due)post(wxSlot); });
+    function post(n){
       const d=document.createElement('div');d.className='notif incoming';
       d.innerHTML=n.ic+'<div><h4></h4><p></p></div><time></time>';
       d.querySelector('h4').textContent=n.t;d.querySelector('p').textContent=n.p;d.querySelector('time').textContent=n.time;
       box.prepend(d);
       if(navigator.vibrate)try{navigator.vibrate(25)}catch(e){}
+    }
+    items.forEach((n,i)=>setTimeout(()=>{
+      if(n.wait){ n.due=true; if(n.ready)post(n); return; }
+      post(n);
     },reduce?0:(window.__bootDelay||0)+1300+i*1500));
   })();
 
@@ -885,7 +981,7 @@ a{color:inherit}
     if(e.key==='Escape')closeAll(); });
 
   // sheets
-  const valid=['cases','about','career','certs','helpline','writing','contact','terminal','photos','podcast','calendar','notes','messages','settings','github','scam','files','share'];
+  const valid=['cases','about','career','certs','helpline','writing','contact','terminal','photos','podcast','calendar','notes','messages','settings','github','scam','files','share','hire'];
   const viewer=$('#viewer');
   $$('[data-ph]').forEach(b=>b.addEventListener('click',()=>{$('#vimg').src=b.dataset.ph;$('#vimg').alt=b.querySelector('img').alt;$('#vcap').textContent=b.dataset.cap;viewer.hidden=false;$('#vclose').focus();}));
   $('#vclose').addEventListener('click',()=>{viewer.hidden=true;});
@@ -945,13 +1041,9 @@ a{color:inherit}
   (function(){
     const t=()=>{$('#wxTime').textContent=new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',timeZone:'Europe/London'});};
     t(); setInterval(t,10000);
-    const W={0:['Clear','☀️'],1:['Mostly clear','🌤️'],2:['Partly cloudy','⛅'],3:['Cloudy','☁️'],45:['Fog','🌫️'],48:['Fog','🌫️'],51:['Drizzle','🌦️'],53:['Drizzle','🌦️'],55:['Drizzle','🌦️'],61:['Light rain','🌧️'],63:['Rain','🌧️'],65:['Heavy rain','🌧️'],71:['Snow','🌨️'],73:['Snow','🌨️'],75:['Heavy snow','❄️'],80:['Showers','🌦️'],81:['Showers','🌧️'],82:['Downpours','⛈️'],95:['Thunderstorm','⛈️']};
-    fetch('https://api.open-meteo.com/v1/forecast?latitude=51.5072&longitude=-0.1276&current=temperature_2m,weather_code,wind_speed_10m&daily=temperature_2m_max,temperature_2m_min&timezone=Europe%2FLondon&forecast_days=1')
-      .then(r=>r.json()).then(j=>{ const c=j.current, w=W[c.weather_code]||['Weather','🌡️'];
-        $('#wxTemp').textContent=Math.round(c.temperature_2m)+'°'; $('#wxIcon').textContent=w[1];
-        $('#wxDesc').textContent=w[0]+' · wind '+Math.round(c.wind_speed_10m)+' km/h';
-        const hl=$('#wxHL'); hl.textContent='H '+Math.round(j.daily.temperature_2m_max[0])+'°  L '+Math.round(j.daily.temperature_2m_min[0])+'°'; hl.hidden=false; })
-      .catch(()=>{ $('#wxDesc').textContent='Weather offline'; $('#wxTemp').textContent=''; $('#wxIcon').textContent=''; });
+    window.__wx.then(w=>{ if(!w){ $('#wxDesc').textContent='Weather offline'; $('#wxTemp').textContent=''; $('#wxIcon').textContent=''; return; }
+      $('#wxTemp').textContent=w.temp+'°'; $('#wxIcon').textContent=w.icon; $('#wxDesc').textContent=w.desc+' · wind '+w.wind+' km/h';
+      const hl=$('#wxHL'); hl.textContent='H '+w.hi+'°  L '+w.lo+'°'; hl.hidden=false; });
   })();
 
   // ---------- GitHub (live from the GitHub API, with a built-in fallback) ----------
@@ -1038,6 +1130,39 @@ a{color:inherit}
       else { navigator.clipboard.writeText('https://cybernuel.github.io').then(()=>show('Link copied')).catch(()=>show('cybernuel.github.io')); } };
   })();
 
+
+  // ---------- Podcast: latest YouTube episodes ----------
+  (function(){
+    let done=false;
+    const fallback=()=>{ $('#eps').innerHTML='<p class="ep-empty">Watch every episode on <a href="https://youtube.com/@thebridgeandyou" target="_blank" rel="noopener">YouTube</a>.</p>'; };
+    loaders.podcast=function(){ if(done)return; done=true;
+      const feed='https://www.youtube.com/feeds/videos.xml?channel_id=UCPo_FLIhwfnNGK8NmW8541Q';
+      fetch('https://api.rss2json.com/v1/api.json?rss_url='+encodeURIComponent(feed)).then(r=>r.json()).then(j=>{
+        if(j.status!=='ok'||!j.items||!j.items.length)return fallback();
+        const box=$('#eps'); box.innerHTML='';
+        j.items.slice(0,6).forEach(it=>{
+          const id=(it.guid||'').split(':').pop()||((it.link||'').split('v=')[1]||'');
+          const a=document.createElement('a'); a.className='ep'; a.href=it.link; a.target='_blank'; a.rel='noopener';
+          a.innerHTML='<div class="ep-thumb"><img alt="" loading="lazy"><span>▶</span></div><div><b></b><small></small></div>';
+          const img=a.querySelector('img'); img.src=it.thumbnail||('https://i.ytimg.com/vi/'+id+'/mqdefault.jpg'); img.onerror=()=>{img.remove();};
+          a.querySelector('b').textContent=it.title;
+          a.querySelector('small').textContent=new Date((it.pubDate||'').replace(' ','T')).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+          box.appendChild(a); });
+      }).catch(fallback);
+    };
+  })();
+
+  // ---------- appearance: dark / light / auto ----------
+  (function(){
+    const dev=$('#device'), mq=matchMedia('(prefers-color-scheme: light)'), btns=[...document.querySelectorAll('[data-theme-opt]')];
+    let mode='dark'; try{mode=localStorage.getItem('cn-theme')||'dark'}catch(e){}
+    function apply(){ const light=mode==='light'||(mode==='auto'&&mq.matches); dev.classList.toggle('light',light);
+      btns.forEach(b=>{const on=b.dataset.themeOpt===mode;b.classList.toggle('on',on);b.setAttribute('aria-checked',on);});
+      const m=document.querySelector('meta[name="theme-color"]'); if(m)m.content=light?'#f2f4f8':'#0b1322'; }
+    btns.forEach(b=>b.onclick=()=>{mode=b.dataset.themeOpt;try{localStorage.setItem('cn-theme',mode)}catch(e){}apply();});
+    if(mq.addEventListener)mq.addEventListener('change',apply);
+    apply();
+  })();
   // calendar
   (function(){
     const EV=[{m:10,d:9,t:"Wifey's birthday 🎂",n:'Every year'}];
